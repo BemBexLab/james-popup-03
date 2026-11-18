@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en" class="bg-[#f8f6fa] text-[#3f484e]">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f8f6fa" />
+    <title>Dance Team Battle · Student Creative</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script defer src="index.js"></script>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"
+    ></script>
+  </head>
+  <body class="m-0 min-h-screen font-[Manrope,Arial,sans-serif]">
+    <div
+      class="pointer-events-none fixed inset-0 overflow-hidden select-none"
+      aria-hidden="true"
+    >
+      <img
+        src="assets/image 4.png"
+        alt=""
+        class="absolute -bottom-5 -left-[130px] w-[350px] max-w-none opacity-20 grayscale min-[1167px]:zoom-[clamp(1,calc(100vw/1167px),1.64)] max-[900px]:opacity-10"
+      />
+      <img
+        src="assets/image 7.png"
+        alt=""
+        class="absolute right-[-200px] bottom-3 w-[470px] max-w-none opacity-20 grayscale min-[1167px]:zoom-[clamp(1,calc(100vw/1167px),1.64)] max-[900px]:opacity-10"
+      />
+    </div>
+
+    <main
+      x-data="danceBattle"
+      data-ui="battle-page"
+      class="relative z-10 mx-auto grid w-[calc(100%_-_48px)] max-w-[984px] grid-cols-[minmax(0,1.206fr)_minmax(0,1fr)] items-start gap-[95px] pt-[30px] pb-7 min-[1167px]:zoom-[clamp(1,calc(100vw/1167px),1.64)] max-[1100px]:gap-12 max-[900px]:max-w-[580px] max-[900px]:grid-cols-1 max-[900px]:gap-8 max-[480px]:w-[calc(100%_-_32px)] max-[480px]:pt-4"
+    >
+      <h1 class="sr-only">Student Creative Dance Team Battle</h1>
+      <section
+        data-ui="gallery"
+        class="min-w-0"
+        aria-label="Dance photo gallery"
+        @keydown.arrow-left.prevent="selectSlide(activeSlide - 1)"
+        @keydown.arrow-right.prevent="selectSlide(activeSlide + 1)"
+      >
+        <div class="aspect-[796/852] w-full overflow-hidden bg-[#e8d3ef]">
+          <img
+            data-ui="featured-image"
+            src="assets/Rectangle 13.png"
+            :src="slides[activeSlide]?.image || 'assets/Rectangle 13.png'"
+            :alt="slides[activeSlide]?.alt || 'Dancer performing a high kick against a pink and purple background'"
+            alt="Dancer performing a high kick against a pink and purple background"
+            class="block h-full w-full object-cover"
+            fetchpriority="high"
+          />
+        </div>
+        <div
+          class="mt-9 flex min-w-0 items-center gap-[18px] max-[480px]:mt-5 max-[480px]:gap-2"
+        >
+          <button
+            data-ui="previous"
+            type="button"
+            class="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-[#eeedf0] bg-[#fafafb] p-0 text-[#f7c813] shadow-[0_8px_14px_#30334415] hover:bg-[#fff2b4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#a78200] max-[900px]:h-8 max-[900px]:w-8"
+            aria-label="Previous photo"
+            @click="selectSlide(activeSlide - 1)"
+          >
+            <svg
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="h-[11px] w-[11px]"
+              aria-hidden="true"
+            >
+              <path d="m10 3-5 5 5 5" />
+            </svg>
+          </button>
+          <div
+            x-ref="thumbnails"
+            class="flex min-w-0 flex-1 items-center gap-[14px] overflow-x-auto py-px max-[480px]:gap-2"
+          >
+            <template x-for="(slide, index) in slides" :key="slide.id">
+              <button
+                data-ui="thumbnail"
+                type="button"
+                class="block h-[58px] min-w-0 flex-1 border bg-transparent p-[3px] transition-opacity focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#a78200] max-[480px]:h-12 max-[480px]:min-w-[64px]"
+                :class="activeSlide === index ? 'border-[#ffd334] opacity-100' : 'border-[#e8e7eb] opacity-40 hover:opacity-100'"
+                :aria-label="'Show ' + slide.alt"
+                :aria-pressed="activeSlide === index"
+                @click="selectSlide(index)"
+              >
+                <img
+                  :src="slide.thumbnail"
+                  alt=""
+                  class="block h-full w-full object-cover"
+                />
+              </button>
+            </template>
+          </div>
+          <button
+            data-ui="next"
+            type="button"
+            class="grid h-6 w-6 shrink-0 place-items-center rounded-full border border-[#eeedf0] bg-[#fafafb] p-0 text-[#f7c813] shadow-[0_8px_14px_#30334415] hover:bg-[#fff2b4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#a78200] max-[900px]:h-8 max-[900px]:w-8"
+            aria-label="Next photo"
+            @click="selectSlide(activeSlide + 1)"
+          >
+            <svg
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="h-[11px] w-[11px]"
+              aria-hidden="true"
+            >
+              <path d="m6 3 5 5-5 5" />
+            </svg>
+          </button>
+        </div>
+      </section>
+
+      <section
+        data-ui="matchup"
+        class="min-w-0"
+        aria-label="Competing dance teams"
+      >
+        <template x-for="(team, index) in teams" :key="team.id">
+          <div>
+            <article
+              data-ui="team-card"
+              class="min-h-[212px] min-w-0 border border-[#e9e8ed] bg-[#f6f7f9] p-[6px] max-[900px]:p-2"
+            >
+              <div
+                class="relative h-[98px] overflow-hidden"
+                :class="index === teams.length - 1 ? 'rounded-[3px]' : ''"
+              >
+                <img
+                  :src="team.image"
+                  :alt="team.imageAlt"
+                  class="block h-full w-full object-cover object-top"
+                />
+                <span
+                  class="absolute top-[5px] right-[5px] flex h-[19px] items-center gap-[3px] rounded-[2px] bg-white px-1 text-[7px] text-[#eabb0e]"
+                >
+                  <svg
+                    class="h-2 w-2"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="m2 11 4-4 3 2 5-6m-4 0h4v4" />
+                  </svg>
+                  <span x-text="'C-Index: ' + team.creativeIndex"></span>
+                </span>
+              </div>
+              <div
+                class="mt-[11px] flex min-h-[34px] min-w-0 items-center gap-[17px] max-[480px]:gap-3"
+              >
+                <img
+                  :src="team.avatar"
+                  :alt="team.creator + ' portrait'"
+                  class="h-[34px] w-[34px] shrink-0 rounded-[3px] object-cover"
+                />
+                <div class="min-w-0">
+                  <h2
+                    class="text-[12px] leading-4 font-bold tracking-[-0.4px] break-words max-[900px]:text-[13px]"
+                    x-text="team.title"
+                  ></h2>
+                  <p
+                    class="mt-[3px] text-[11px] leading-[14px] tracking-[-0.25px] text-[#777]"
+                    x-text="team.description"
+                  ></p>
+                </div>
+              </div>
+              <div
+                class="mt-[22px] flex min-h-7 items-center gap-[14px] max-[480px]:gap-2"
+              >
+                <div class="mr-auto min-w-0">
+                  <h3
+                    class="text-xs leading-[15px] font-bold tracking-[-0.3px]"
+                    x-text="team.creator"
+                  ></h3>
+                  <p
+                    class="text-[10px] leading-[14px] tracking-[-0.3px] text-[#777]"
+                    x-text="team.subscribers"
+                  ></p>
+                </div>
+                <button
+                  data-ui="subscribe"
+                  type="button"
+                  class="flex h-[22px] min-w-[70px] shrink-0 items-center justify-center gap-1 rounded-full border border-[#e4e5e9] bg-transparent px-[5px] text-[10px] leading-[14px] whitespace-nowrap hover:bg-[#fff3bb] aria-pressed:bg-[#fff3bb] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#a78200] max-[900px]:h-8 max-[900px]:px-2"
+                  :aria-pressed="team.subscribed"
+                  @click="team.subscribed = !team.subscribed"
+                >
+                  <img
+                    src="assets/Vector.svg"
+                    alt=""
+                    class="h-[7px] w-[6px] shrink-0"
+                  /><span
+                    x-text="team.subscribed ? 'Subscribed' : 'Subscribe'"
+                  ></span>
+                </button>
+                <span
+                  class="flex h-6 w-5 shrink-0 items-center justify-end border-l border-[#e4e5e9] text-[11px] font-bold"
+                  :aria-label="team.memberCount + ' team members'"
+                  x-text="team.memberCount"
+                ></span>
+              </div>
+            </article>
+            <template x-if="index < teams.length - 1"
+              ><div
+                class="mx-auto my-3 grid h-[30px] w-[30px] place-items-center bg-[#ffd334] text-[11px] font-bold text-white"
+                aria-label="versus"
+              >
+                VS
+              </div></template
+            >
+          </div>
+        </template>
+        <template x-if="loadError"
+          ><p role="alert" class="p-4 text-sm text-red-700">
+            The battle could not load.
+            <button type="button" class="underline" @click="loadBattle()">
+              Try again
+            </button>
+          </p></template
+        >
+      </section>
+    </main>
+  </body>
+</html>

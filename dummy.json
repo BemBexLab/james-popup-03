@@ -1,0 +1,69 @@
+{
+  "teams": [
+    {
+      "id": "team-one",
+      "image": "assets/Rectangle 5.png",
+      "imageAlt": "Dancer in a colorful studio",
+      "avatar": "assets/Rectangle 6.png",
+      "creativeIndex": "12233",
+      "title": "Test for PlayGround in Approved Task",
+      "description": "Lorem Ipsum is simply dummy text",
+      "creator": "Vickey Roy",
+      "subscribers": "11.5 M subs",
+      "memberCount": 3,
+      "subscribed": false
+    },
+    {
+      "id": "team-two",
+      "image": "assets/Rectangle 5.png",
+      "imageAlt": "Dancer in a colorful studio",
+      "avatar": "assets/Rectangle 6 (1).png",
+      "creativeIndex": "10123",
+      "title": "Fuga Ea quia cum eo",
+      "description": "Lorem Ipsum is simply dummy text",
+      "creator": "Vickey Roy",
+      "subscribers": "11.5 M subs",
+      "memberCount": 10,
+      "subscribed": false
+    },
+    {
+      "id": "team-three",
+      "image": "assets/Rectangle 51.png",
+      "imageAlt": "Dancer surrounded by red smoke",
+      "avatar": "assets/Rectangle 6 (1).png",
+      "creativeIndex": "11143",
+      "title": "Project Test for INDEX Jan IO 10:38AM",
+      "description": "Lorem Ipsum is simply dummy text",
+      "creator": "Vickey Roy",
+      "subscribers": "11.5 M subs",
+      "memberCount": 20,
+      "subscribed": false
+    }
+  ],
+  "slides": [
+    {
+      "id": "photo-one",
+      "image": "assets/Rectangle 13.png",
+      "thumbnail": "assets/Rectangle 13.png",
+      "alt": "Dancer performing a high kick against a pink and purple background"
+    },
+    {
+      "id": "photo-two",
+      "image": "assets/Rectangle 5.png",
+      "thumbnail": "assets/Rectangle 5.png",
+      "alt": "Dancer in a colorful studio"
+    },
+    {
+      "id": "photo-three",
+      "image": "assets/Rectangle 11.png",
+      "thumbnail": "assets/Rectangle 11.png",
+      "alt": "Full-length studio dance performance"
+    },
+    {
+      "id": "photo-four",
+      "image": "assets/Rectangle 51.png",
+      "thumbnail": "assets/Rectangle 51.png",
+      "alt": "Dancer surrounded by red smoke"
+    }
+  ]
+}
