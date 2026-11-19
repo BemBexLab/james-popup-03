@@ -17,6 +17,56 @@
       defer
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"
     ></script>
+    <style>
+      .image-frame {
+        position: relative;
+        overflow: hidden;
+        background: #eae7ed;
+      }
+      .image-frame::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(100deg, transparent 20%, #ffffff80 50%, transparent 80%);
+        transform: translateX(-100%);
+      }
+      .image-frame[data-state="loading"]::before,
+      .image-frame[data-pending="true"]::before {
+        animation: skeleton-shimmer 1.4s ease-in-out infinite;
+      }
+      .image-frame > img {
+        opacity: 0;
+      }
+      .image-frame[data-state="loaded"] > img {
+        opacity: 1;
+      }
+      @keyframes skeleton-shimmer {
+        to { transform: translateX(100%); }
+      }
+      [data-ui="subscribe"] {
+        transition: background-color 180ms ease, border-color 180ms ease;
+      }
+      [data-ui="subscribe"][aria-pressed="true"] {
+        border-color: #e6bc2f;
+      }
+      .subscribe-check {
+        stroke-dasharray: 1;
+        stroke-dashoffset: 1;
+        transition: stroke-dashoffset 280ms ease 80ms;
+      }
+      [aria-pressed="true"] .subscribe-check {
+        stroke-dashoffset: 0;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .image-frame::before {
+          animation: none !important;
+        }
+        [data-ui="subscribe"], .subscribe-check {
+          transition: none;
+        }
+      }
+    </style>
   </head>
   <body class="m-0 min-h-screen font-[Manrope,Arial,sans-serif]">
     <div
@@ -48,13 +98,16 @@
         @keydown.arrow-left.prevent="selectSlide(activeSlide - 1)"
         @keydown.arrow-right.prevent="selectSlide(activeSlide + 1)"
       >
-        <div class="aspect-[796/852] w-full overflow-hidden bg-[#e8d3ef]">
+        <div
+          class="image-frame aspect-[796/852] w-full"
+          data-pending="true"
+          :data-pending="isLoading"
+        >
           <img
             data-ui="featured-image"
-            src="assets/Rectangle 13.png"
-            :src="slides[activeSlide]?.image || 'assets/Rectangle 13.png'"
-            :alt="slides[activeSlide]?.alt || 'Dancer performing a high kick against a pink and purple background'"
-            alt="Dancer performing a high kick against a pink and purple background"
+            x-image="slides[activeSlide]?.image"
+            :alt="slides[activeSlide]?.alt || ''"
+            alt=""
             class="block h-full w-full object-cover"
             fetchpriority="high"
           />
@@ -96,11 +149,13 @@
                 :aria-pressed="activeSlide === index"
                 @click="selectSlide(index)"
               >
-                <img
-                  :src="slide.thumbnail"
-                  alt=""
-                  class="block h-full w-full object-cover"
-                />
+                <span class="image-frame block h-full w-full" data-state="loading">
+                  <img
+                    x-image="slide.thumbnail"
+                    alt=""
+                    class="block h-full w-full object-cover"
+                  />
+                </span>
               </button>
             </template>
           </div>
@@ -139,11 +194,12 @@
               class="min-h-[212px] min-w-0 border border-[#e9e8ed] bg-[#f6f7f9] p-[6px] max-[900px]:p-2"
             >
               <div
-                class="relative h-[98px] overflow-hidden"
+                class="image-frame relative h-[98px] overflow-hidden"
+                data-state="loading"
                 :class="index === teams.length - 1 ? 'rounded-[3px]' : ''"
               >
                 <img
-                  :src="team.image"
+                  x-image="team.image"
                   :alt="team.imageAlt"
                   class="block h-full w-full object-cover object-top"
                 />
@@ -168,11 +224,13 @@
               <div
                 class="mt-[11px] flex min-h-[34px] min-w-0 items-center gap-[17px] max-[480px]:gap-3"
               >
-                <img
-                  :src="team.avatar"
-                  :alt="team.creator + ' portrait'"
-                  class="h-[34px] w-[34px] shrink-0 rounded-[3px] object-cover"
-                />
+                <div class="image-frame h-[34px] w-[34px] shrink-0 rounded-[3px]" data-state="loading">
+                  <img
+                    x-image="team.avatar"
+                    :alt="team.creator + ' portrait'"
+                    class="block h-full w-full object-cover"
+                  />
+                </div>
                 <div class="min-w-0">
                   <h2
                     class="text-[12px] leading-4 font-bold tracking-[-0.4px] break-words max-[900px]:text-[13px]"
@@ -200,15 +258,22 @@
                 <button
                   data-ui="subscribe"
                   type="button"
-                  class="flex h-[22px] min-w-[70px] shrink-0 items-center justify-center gap-1 rounded-full border border-[#e4e5e9] bg-transparent px-[5px] text-[10px] leading-[14px] whitespace-nowrap hover:bg-[#fff3bb] aria-pressed:bg-[#fff3bb] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#a78200] max-[900px]:h-8 max-[900px]:px-2"
+                  class="flex h-[22px] min-w-[86px] shrink-0 items-center justify-center gap-1 rounded-full border border-[#e4e5e9] bg-transparent px-[5px] text-[10px] leading-[14px] whitespace-nowrap hover:bg-[#fff3bb] aria-pressed:bg-[#fff3bb] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#a78200] max-[900px]:h-8 max-[900px]:px-2"
                   :aria-pressed="team.subscribed"
-                  @click="team.subscribed = !team.subscribed"
+                  @click="toggleSubscription(team, $el)"
                 >
-                  <img
-                    src="assets/Vector.svg"
-                    alt=""
-                    class="h-[7px] w-[6px] shrink-0"
-                  /><span
+                  <span class="relative grid h-[10px] w-[10px] shrink-0 place-items-center" aria-hidden="true">
+                    <img
+                      src="assets/Vector.svg"
+                      alt=""
+                      class="h-[7px] w-[6px]"
+                      :style="{ opacity: team.subscribed ? 0 : 1 }"
+                    />
+                    <svg class="absolute inset-0 h-[10px] w-[10px]" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path class="subscribe-check" pathLength="1" d="m2 6 2.5 2.5L10 3" />
+                    </svg>
+                  </span>
+                  <span
                     x-text="team.subscribed ? 'Subscribed' : 'Subscribe'"
                   ></span>
                 </button>
