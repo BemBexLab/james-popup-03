@@ -2,9 +2,9 @@
   "teams": [
     {
       "id": "team-one",
-      "image": "assets/Rectangle 5.png",
-      "imageAlt": "Dancer in a colorful studio",
-      "avatar": "assets/Rectangle 6.png",
+      "image": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=800&q=80",
+      "imageAlt": "Dancers performing on stage",
+      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=96&h=96&q=80",
       "creativeIndex": "12233",
       "title": "Test for PlayGround in Approved Task",
       "description": "Lorem Ipsum is simply dummy text",
@@ -15,9 +15,9 @@
     },
     {
       "id": "team-two",
-      "image": "assets/Rectangle 5.png",
-      "imageAlt": "Dancer in a colorful studio",
-      "avatar": "assets/Rectangle 6 (1).png",
+      "image": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80",
+      "imageAlt": "Live performance with colorful stage lighting",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=96&h=96&q=80",
       "creativeIndex": "10123",
       "title": "Fuga Ea quia cum eo",
       "description": "Lorem Ipsum is simply dummy text",
@@ -28,9 +28,9 @@
     },
     {
       "id": "team-three",
-      "image": "assets/Rectangle 51.png",
-      "imageAlt": "Dancer surrounded by red smoke",
-      "avatar": "assets/Rectangle 6 (1).png",
+      "image": "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=800&q=80",
+      "imageAlt": "Crowd enjoying an outdoor music festival",
+      "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=96&h=96&q=80",
       "creativeIndex": "11143",
       "title": "Project Test for INDEX Jan IO 10:38AM",
       "description": "Lorem Ipsum is simply dummy text",
@@ -43,27 +43,27 @@
   "slides": [
     {
       "id": "photo-one",
-      "image": "assets/Rectangle 13.png",
-      "thumbnail": "assets/Rectangle 13.png",
-      "alt": "Dancer performing a high kick against a pink and purple background"
+      "image": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=1200&q=80",
+      "thumbnail": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=200&q=80",
+      "alt": "Dancers performing on stage"
     },
     {
       "id": "photo-two",
-      "image": "assets/Rectangle 5.png",
-      "thumbnail": "assets/Rectangle 5.png",
-      "alt": "Dancer in a colorful studio"
+      "image": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80",
+      "thumbnail": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=200&q=80",
+      "alt": "Live performance with colorful stage lighting"
     },
     {
       "id": "photo-three",
-      "image": "assets/Rectangle 11.png",
-      "thumbnail": "assets/Rectangle 11.png",
-      "alt": "Full-length studio dance performance"
+      "image": "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=1200&q=80",
+      "thumbnail": "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&w=200&q=80",
+      "alt": "Crowd enjoying an outdoor music festival"
     },
     {
       "id": "photo-four",
-      "image": "assets/Rectangle 51.png",
-      "thumbnail": "assets/Rectangle 51.png",
-      "alt": "Dancer surrounded by red smoke"
+      "image": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=1200&q=80",
+      "thumbnail": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=200&q=80",
+      "alt": "Concert stage illuminated by colorful lights"
     }
   ]
 }
